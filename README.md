@@ -16,6 +16,7 @@ Assumptions:
 4. Appspec.yml is correctly prepared and setup
 
 Below are some URLs for your reference: 
+
   https://docs.aws.amazon.com/codedeploy/latest/userguide/reference-appspec-file.html#appspec-reference-server
   https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-steps.html#deployment-steps-server
   https://docs.aws.amazon.com/codedeploy/latest/userguide/deployments-create-prerequisites.html
