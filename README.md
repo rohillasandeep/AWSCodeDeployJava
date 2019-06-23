@@ -1,4 +1,4 @@
-# AWSCodeDeployJava
+# AWS CodeDeploy Java Application
 Command Line Java Project : Automate deployments through AWS CodeDeploy
 
 This project aims at automating deployments through pipeline executions [such as Jenkins] on systems where, either AWS CLI is not available or cannot be deployed.
