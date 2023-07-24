@@ -5,12 +5,19 @@ on:
     branches: [ "master" ]
 
 permissions:
-  contents: read
-
+      id-token: write
+      contents: write
 jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
     environment: production
     steps:
-      - run: echo "Hello World!"
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          aws-region: us-west-2
+          role-to-assume: arn:aws:iam::859314043120:role/github-read-only-role
+          role-session-name: GithubActionsSession
+          role-duration-seconds: 900
+      - run: aws sts get-caller-identity
