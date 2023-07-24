@@ -21,7 +21,10 @@ jobs:
           role-session-name: GithubActionsSession
           role-duration-seconds: 900
       - run: aws sts get-caller-identity
+      - run: pwd
+      - run: cd ..
+      - run: pwd
       - name: Copy files to the production website with the AWS CLI
         run: |
-          aws s3 sync ../* s3://srohilla-github-sync
+          aws s3 sync . s3://srohilla-github-sync
       - run: aws s3api list-objects --bucket srohilla-github-sync
