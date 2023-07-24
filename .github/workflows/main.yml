@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@master
         with:
@@ -22,7 +24,7 @@ jobs:
           role-duration-seconds: 900
       - run: aws sts get-caller-identity
       - run: pwd
-      - run: ls -al ../../
+      - run: ls -al
       - name: Copy files to the production website with the AWS CLI
         run: |
           aws s3 sync . s3://srohilla-github-sync
