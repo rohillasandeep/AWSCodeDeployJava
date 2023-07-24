@@ -4,7 +4,6 @@ jobs:
     permissions:
       id-token: write
       contents: write
-    runs-on: ubuntu-18.04
     steps:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@master
