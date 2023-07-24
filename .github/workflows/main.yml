@@ -1,0 +1,16 @@
+jobs:
+  build:
+    name: build
+    permissions:
+      id-token: write
+      contents: write
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          aws-region: us-east-2
+          role-to-assume: arn:aws:iam::12345678910:role/GitHubActionsRole
+          role-session-name: GithubActionsSession
+
+      - run: aws sts get-caller-identity
