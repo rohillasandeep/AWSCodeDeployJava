@@ -9,8 +9,8 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@master
         with:
-          aws-region: us-east-2
-          role-to-assume: arn:aws:iam::12345678910:role/GitHubActionsRole
+          aws-region: us-west-2
+          role-to-assume: arn:aws:iam::859314043120:role/github-read-only-role
           role-session-name: GithubActionsSession
 
       - run: aws sts get-caller-identity
