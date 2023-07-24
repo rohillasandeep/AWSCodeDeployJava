@@ -1,15 +1,10 @@
+on:
+  push:
+    branches:
+      - main
+
 jobs:
-  build:
-    name: build
-    permissions:
-      id-token: write
-      contents: write
+  print_hello:
+    runs-on: ubuntu-latest
     steps:
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@master
-        with:
-          aws-region: us-west-2
-          role-to-assume: arn:aws:iam::859314043120:role/github-read-only-role
-          role-session-name: GithubActionsSession
-          role-duration-seconds: 900
-      - run: aws sts get-caller-identity
+      - run: echo "Hello World!"
