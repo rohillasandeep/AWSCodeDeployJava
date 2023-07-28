@@ -1,23 +1,30 @@
-name: Upload assets to S3 bucket
-env:
-      AWS_REGION_NAME: us-west-2
-      AWS_ACCESS_KEY_ID: AKIA4QEY3XDYMR7E4SOS
-      AWS_SECRET_ACCESS_KEY:  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
-      AWS_S3_ENDPOINT: https://s3.amazonaws.com
+name: Demo Actions
+
 on:
   push:
-    branches:
-    - master
+    branches: [ "master" ]
+
+permissions:
+      id-token: write
+      contents: write
 jobs:
-  upload:
-    name: Upload assets to S3 bucket
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
+    environment: production
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    - name: Copy files to S3 bucket
-      run: |
-        aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-        aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-        aws configure set region $AWS_REGION_NAME
-        aws s3 sync . s3://srohilla-github-sync --delete
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          aws-region: us-west-2
+          role-to-assume: arn:aws:iam::859314043120:role/github-role
+          role-session-name: GithubActionsSession
+          role-duration-seconds: 900
+      - run: aws sts get-caller-identity
+      - run: pwd
+      - run: ls -al
+      - name: Copy files to the production website with the AWS CLI
+        run: |
+          aws s3 sync . s3://srohilla-github-sync
