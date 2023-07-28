@@ -27,5 +27,6 @@ jobs:
       - run: ls -al
       - name: Copy files to the production website with the AWS CLI
         run: |
+          aws s3api list-buckets --query "Buckets[].Name"
           aws s3 ls s3://srohilla-github-sync
           aws s3 sync . s3://srohilla-github-sync
