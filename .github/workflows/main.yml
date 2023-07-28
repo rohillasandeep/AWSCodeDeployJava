@@ -8,6 +8,9 @@ on:
   push:
     branches:
     - master
+permissions:
+      id-token: write
+      contents: write
 jobs:
   upload:
     name: Upload assets to S3 bucket
