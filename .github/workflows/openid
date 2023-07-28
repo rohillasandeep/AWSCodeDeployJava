@@ -1,0 +1,31 @@
+name: Demo Actions
+
+on:
+  push:
+    branches: [ "master" ]
+
+permissions:
+      id-token: write
+      contents: write
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          aws-region: us-west-2
+          role-to-assume: arn:aws:iam::859314043120:role/srohilla-github-role
+          role-session-name: GithubActionsSession
+          role-duration-seconds: 900
+      - run: aws sts get-caller-identity
+      - run: pwd
+      - run: ls -al
+      - name: Copy files to the production website with the AWS CLI
+        run: |
+          aws s3 sync . s3://srohilla-github-sync
+      - run: aws s3api list-objects --bucket srohilla-github-sync
