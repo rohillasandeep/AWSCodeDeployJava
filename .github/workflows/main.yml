@@ -1,4 +1,9 @@
 name: Upload assets to S3 bucket
+env:
+      AWS_REGION_NAME: us-west-2
+      AWS_ACCESS_KEY_ID: AKIA4QEY3XDYMR7E4SOS
+      AWS_SECRET_ACCESS_KEY:  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
+      AWS_S3_ENDPOINT: https://s3.amazonaws.com
 on:
   push:
     branches:
@@ -10,14 +15,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: AKIA4QEY3XDYMR7E4SOS
-        aws-secret-access-key: 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
-        aws-region: us-west-2
-        role-duration-seconds: 900
-        role-session-name: AssetsUploadSession
     - name: Copy files to S3 bucket
       run: |
+        aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+        aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+        aws configure set region $AWS_REGION_NAME
         aws s3 sync . s3://srohilla-github-sync
